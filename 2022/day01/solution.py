@@ -1,36 +1,35 @@
 # AdventOfCode/2022/day01/solution.py
 # 
-# Snack Calories
+# --- Day 1: Calorie Counting ---
 # 
 # https://adventofcode.com/2022/day/1
 
 
 def main(input_name):
     input_file = open(input_name)
-    input_text = input_file.read().strip()
-    result1 = part1(input_text)
-    result2 = part2(input_text)
+    input_text = input_file.read().rstrip()
+    input_data = parse_input(input_text)
+    result1 = calc_part1(input_data)
+    result2 = calc_part2(input_data)
     print(result1, result2)
 
 
-def part1(input_text):
-    all_elf_list = get_all_elves(input_text)
-    return max(all_elf_list)
+def parse_input(input_text):
+    return [parse_group(group_text) for group_text in input_text.split("\n\n")]
 
 
-def part2(input_text):
-    all_elf_list = get_all_elves(input_text)
-    return sum(sorted(all_elf_list, reverse=True)[:3])
+def parse_group(group_text):
+    return sum(int(line_text) for line_text in group_text.split("\n"))
 
 
-def get_all_elves(input_text):
-    elf_text_list = input_text.split("\n\n")
-    all_elves = []
-    for elf_text in elf_text_list:
-        elf_total = sum([int(number) for number in elf_text.split("\n")])
-        all_elves.append(elf_total)
-    return all_elves
+def calc_part1(input_data):
+    return max(input_data)
 
 
-main("example.txt")
-main("input.txt")
+def calc_part2(input_data):
+    return sum(sorted(input_data, reverse=True)[:3])
+
+
+if __name__ == "__main__":
+    main("example.txt")
+    main("input.txt")
