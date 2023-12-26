@@ -6,6 +6,7 @@ for line in data:
     gameNumber, colours = line.split(": ")
     gameNumber = int(gameNumber[5:])
     sections = colours.split("; ")
+    max = [0, 0, 0]
     for section in sections:
         section = section.split(", ")
         for colour in section:
@@ -21,12 +22,14 @@ for line in data:
                 green = int(colour[0:2].rstrip())
             else: 
                 green = 0
-            if red > 12 or blue > 14 or green > 13:
-                gameNumber = 0
-                break
-        if gameNumber == 0:
-            break
-    print(gameNumber)
-    total += gameNumber
+       
+            if red > max[0]:
+                max[0] = red
+            if blue > max[1]:
+                max[1] = blue
+            if green > max[2]:
+                max[2] = green
+    power = max[0] * max[1] * max[2]
+    total += power
 
 print(total)
