@@ -8,6 +8,18 @@ for section in data:
     if data.index(section) == 0:
         x, seeds = section.split(": ")
         seeds = seeds.split()
+        seedStart = []
+        seedRange = []
+        for i in range(len(seeds)):
+            if i % 2 == 0:
+                seedStart.append(seeds[i])
+            else:
+                seedRange.append(seeds[i])
+        seeds = []
+        for j in range(len(seedStart)):
+            k = seedRange[j]
+            for l in range(int(k)):
+                seeds.append(str(int(seedStart[j])+int(l)))
     else:
         lines = section.splitlines()
         lines.pop(0)
@@ -34,5 +46,4 @@ for section in data:
             else:
                 seeds[seed] = int(seeds[seed])
 
-print(seeds)
 print(min(seeds))
