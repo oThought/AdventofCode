@@ -2,11 +2,24 @@ f = open("Data.txt", "r")
 data = f.readlines()
 
 hands, bids, types, rank = [], [], [], []
-cards = {"1": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "T": 10, "J": 11, "Q": 12, "K": 13, "A": 14}
+cards = {"J": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "T": 10, "Q": 11, "K": 12, "A": 13}
 for line in data:
     hand, bid = line.split()
     hands.append(hand)
     bids.append(bid)
+
+def joker(hand):
+    while hand.find("J") != -1:
+        a, b, c, d, e = hand.count(hand[0]), hand.count(hand[1]), hand.count(hand[2]), hand.count(hand[3]), hand.count(hand[4])
+        joker = {a: 0, b: 1, c: 2, d: 3, e: 4}
+        f = max([a, b, c, d, e])
+        hand = [*hand]
+        hand[[*hand].index("J")] = hand[joker[f]]
+        hand = "".join(hand)
+    return hand
+
+for hand in range(len(hands)):
+    hands[hand] = joker(hands[hand])
 
 def checktype(h):
     if h.count(h[0]) == 5:
