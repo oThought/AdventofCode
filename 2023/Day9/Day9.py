@@ -25,12 +25,13 @@ for line in data:
     fulldata.append(new)
     next = []
     for f in fulldata:
-        next.append(f[-1])
+        next.append(int(f[0]))
     for n in range(len(next)):
         if n != 0:
-            x = int(next[::-1][n]) + x
+            x = next[::-1][n] - x
         else:
             x = 0
     output += x
+        
 
 print(output)
